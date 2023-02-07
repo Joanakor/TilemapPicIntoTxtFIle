@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -57,10 +58,35 @@ public class TileProcessor {
                 {
                     if (colorTable[color_indx].getRGB() == color)
                     {
-                        numMap[j][i] = color_indx;
+                        numMap[i][j] = color_indx;
                     }
                 }
             }
+        }
+
+        File txtfile;
+
+        try {
+            txtfile = new File("C:/Users/mark6/OneDrive/Documents/TilemapPicIntoTxtFile/TilemapPicIntoTxtFile/src/tilemap.txt");
+            if (txtfile.createNewFile()) {
+                System.out.println("File created: " + txtfile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+            FileWriter myWriter = new FileWriter(txtfile);
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    myWriter.append(String.valueOf(numMap[i][j])).append(" ");
+                }
+                myWriter.append("\n");
+            }
+
+            myWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }

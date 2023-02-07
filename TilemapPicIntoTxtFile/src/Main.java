@@ -5,7 +5,7 @@ import java.io.InputStream;
 public class Main {
     public static void main(String[] args)
     {
-        File file = new File("C:/Users/mark6/OneDrive/Documents/TilemapPicIntoTxtFile/TilemapPicIntoTxtFile/src/reference_map.png");
+        File file = new File("C:/Users/mark6/OneDrive/Documents/TilemapPicIntoTxtFile/TilemapPicIntoTxtFile/src/reference_map_new.png");
         TileProcessor tileProcessor = new TileProcessor();
 
         tileProcessor.run(file);
