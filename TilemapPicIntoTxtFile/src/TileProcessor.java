@@ -67,11 +67,14 @@ public class TileProcessor {
         File txtfile;
 
         try {
-            txtfile = new File(outputFolderLocation + "\\" + "tilemap.txt");
-            if (txtfile.createNewFile()) {
-                System.out.println("File created: " + txtfile.getName());
-            } else {
-                System.out.println("File already exists.");
+            int exists = 1;
+            while (true) {
+                txtfile = new File(outputFolderLocation + "\\" + "tilemap" + exists + ".txt");
+                if (txtfile.createNewFile()) {
+                    break;
+                } else {
+                    exists++;
+                }
             }
             FileWriter myWriter = new FileWriter(txtfile);
 
