@@ -41,7 +41,7 @@ public class TileProcessor {
         }
     }
 
-    public void run(File imgfile)
+    public void run(File imgfile, String outputFolderLocation)
     {
         BufferedImage img = fileIntoImage(imgfile);
         int height = img.getHeight(null);
@@ -67,7 +67,7 @@ public class TileProcessor {
         File txtfile;
 
         try {
-            txtfile = new File("C:/Users/mark6/OneDrive/Documents/TilemapPicIntoTxtFile/TilemapPicIntoTxtFile/src/tilemap.txt");
+            txtfile = new File(outputFolderLocation + "\\" + "tilemap.txt");
             if (txtfile.createNewFile()) {
                 System.out.println("File created: " + txtfile.getName());
             } else {

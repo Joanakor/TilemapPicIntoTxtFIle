@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public class UserWindow extends JFrame implements ActionListener {
 
+    TileProcessor tileProcessor;
     JMenuBar menuBar;
     JMenu help;
     JLabel preview;
@@ -20,8 +22,16 @@ public class UserWindow extends JFrame implements ActionListener {
     JLabel status;
     ImageIcon previewIcon;
 
+    JButton confirm;
     String statusMessage;
+
+    File selectedPicture;
+
+    String selectedOutputFolder;
+
     public UserWindow(){
+        tileProcessor = new TileProcessor();
+
         setDefaultConfigurations();
 
         //------Menu bar-------
@@ -43,25 +53,41 @@ public class UserWindow extends JFrame implements ActionListener {
         addFile.setBounds(80, 150, 230, 20);
         addFile.setFocusable(false);
 
+        addFile.addActionListener(this);
+
         addFile.addItem("");
         addFile.addItem("Select picture...");
-
+        addFile.setSelectedIndex(0);
 
         //--------Second prompt----------
         text2 = new JLabel("Select the folder for the output file:");
         text2.setBounds(80, 180, 250, 20);
 
-        addFolder = new JComboBox<String>();
+        addFolder = new JComboBox<>();
         addFolder.setBounds(80, 210, 230, 20);
         addFolder.setFocusable(false);
 
+        addFolder.addActionListener(this);
+
         addFolder.addItem("");
         addFolder.addItem("Select folder...");
+        addFolder.setSelectedIndex(0);
+
+        //--------Button-----------
+
+        confirm = new JButton("Confirm");
+        confirm.setFocusable(false);
+        confirm.addActionListener(this);
+        confirm.setBounds(150, 240, 100, 20);
 
         //-------Status---------
         statusMessage = "So far so good";
         status = new JLabel("Status: " + statusMessage);
-        status.setBounds(80, 220, 250, 100);
+        status.setBounds(80, 265, 230, 70);
+        status.setHorizontalAlignment(JLabel.CENTER);
+
+        status.setBorder(BorderFactory.createLineBorder(null, 2, true));
+        status.setVerticalTextPosition(JLabel.NORTH);
 
         setJMenuBar(menuBar);
         add(preview);
@@ -69,30 +95,43 @@ public class UserWindow extends JFrame implements ActionListener {
         add(addFile);
         add(text2);
         add(addFolder);
+        add(confirm);
         add(status);
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == addFile && addFile.getSelectedItem() == "Select picture...")
+        {
+            setTilemapPictureFile();
+        }
+        if (e.getSource() == addFolder && addFolder.getSelectedItem() == "Select folder...")
+        {
+            setOutputFolder();
+        }
+        if (e.getSource() == confirm)
+        {
+            System.out.println("wow");
+            tileProcessor.run(selectedPicture, selectedOutputFolder);
+        }
     }
 
-    public ImageIcon resizeAndSetImageIcon(String pathname)
+    private void resizeAndSetImageIcon(File selectedPicture)
     {
         BufferedImage newImg = null;
 
         try {
-            newImg = ImageIO.read(new File(pathname));
+            newImg = ImageIO.read(selectedPicture);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Image dimg = newImg.getScaledInstance(preview.getWidth(), preview.getHeight(), Image.SCALE_DEFAULT);
-        return new ImageIcon(dimg);
+        preview.setIcon(new ImageIcon(dimg));
     }
 
-    public void setDefaultConfigurations()
+    private void setDefaultConfigurations()
     {
         setTitle("Tilemap picture to txt");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,4 +141,33 @@ public class UserWindow extends JFrame implements ActionListener {
         setResizable(false);
     }
 
+    private void setTilemapPictureFile()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".png .jpg .jpeg", "png", "jpg", "jpeg");
+        fileChooser.setFileFilter(filter);
+        int response = fileChooser.showOpenDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            selectedPicture = fileChooser.getSelectedFile();
+            addFile.removeItemAt(0);
+            addFile.insertItemAt(fileChooser.getSelectedFile().getAbsolutePath(), 0);
+            addFile.setSelectedIndex(0);
+            resizeAndSetImageIcon(selectedPicture);
+        }
+    }
+
+    private void setOutputFolder()
+    {
+        JFileChooser folderChooser = new JFileChooser();
+        folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int response = folderChooser.showOpenDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            selectedOutputFolder = String.valueOf(folderChooser.getSelectedFile());
+            addFolder.removeItemAt(0);
+            addFolder.insertItemAt(selectedOutputFolder, 0);
+            addFolder.setSelectedIndex(0);
+        }
+    }
 }
