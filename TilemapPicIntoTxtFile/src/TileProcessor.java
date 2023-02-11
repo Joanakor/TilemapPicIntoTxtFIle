@@ -1,11 +1,9 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class TileProcessor {
 
@@ -24,26 +22,26 @@ public class TileProcessor {
         System.out.println(colorTable[0].getRed() + " " + colorTable[0].getGreen() + " " + colorTable[0].getBlue());
         colorTable[1] = Color.black;
         System.out.println(colorTable[1].getRed() + " " + colorTable[1].getGreen() + " " + colorTable[1].getBlue());
-        colorTable[2] = Color.cyan;
+        colorTable[2] = Color.red;
         System.out.println(colorTable[2].getRed() + " " + colorTable[2].getGreen() + " " + colorTable[2].getBlue());
         colorTable[3] = Color.green;
         System.out.println(colorTable[3].getRed() + " " + colorTable[3].getGreen() + " " + colorTable[3].getBlue());
-        colorTable[4] = Color.orange;
+        colorTable[4] = Color.blue;
         System.out.println(colorTable[4].getRed() + " " + colorTable[4].getGreen() + " " + colorTable[4].getBlue());
     }
 
-    private BufferedImage fileIntoImage(File imgfile)
+    private BufferedImage fileIntoImage(File imgFile)
     {
         try {
-            return ImageIO.read(imgfile);
+            return ImageIO.read(imgFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void run(File imgfile, String outputFolderLocation)
+    public void run(File imgFile, String outputFolderLocation)
     {
-        BufferedImage img = fileIntoImage(imgfile);
+        BufferedImage img = fileIntoImage(imgFile);
         int height = img.getHeight(null);
         int width = img.getWidth(null);
 
@@ -54,29 +52,29 @@ public class TileProcessor {
             for (int j = 0; j < width; j++)
             {
                 int color = img.getRGB(j, i);
-                for (int color_indx = 0; color_indx < colorTableSize; color_indx++)
+                for (int color_index = 0; color_index < colorTableSize; color_index++)
                 {
-                    if (colorTable[color_indx].getRGB() == color)
+                    if (colorTable[color_index].getRGB() == color)
                     {
-                        numMap[i][j] = color_indx;
+                        numMap[i][j] = color_index;
                     }
                 }
             }
         }
 
-        File txtfile;
+        File txtFile;
 
         try {
             int exists = 1;
             while (true) {
-                txtfile = new File(outputFolderLocation + "\\" + "tilemap" + exists + ".txt");
-                if (txtfile.createNewFile()) {
+                txtFile = new File(outputFolderLocation + "\\" + "tilemap" + exists + ".txt");
+                if (txtFile.createNewFile()) {
                     break;
                 } else {
                     exists++;
                 }
             }
-            FileWriter myWriter = new FileWriter(txtfile);
+            FileWriter myWriter = new FileWriter(txtFile);
 
             for (int i = 0; i < height; i++)
             {

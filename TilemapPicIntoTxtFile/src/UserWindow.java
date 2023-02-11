@@ -2,7 +2,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -20,10 +19,8 @@ public class UserWindow extends JFrame implements ActionListener {
     JComboBox<String> addFile;
     JComboBox<String> addFolder;
     JLabel status;
-    ImageIcon previewIcon;
 
     JButton confirm;
-    String statusMessage;
 
     File selectedPicture;
 
@@ -49,7 +46,7 @@ public class UserWindow extends JFrame implements ActionListener {
         text1 = new JLabel("Select properly coloured tilemap image:");
         text1.setBounds(80, 120, 250, 20);
 
-        addFile = new JComboBox<String>();
+        addFile = new JComboBox<>();
         addFile.setBounds(80, 150, 230, 20);
         addFile.setFocusable(false);
 
@@ -81,8 +78,7 @@ public class UserWindow extends JFrame implements ActionListener {
         confirm.setBounds(150, 240, 100, 20);
 
         //-------Status---------
-        statusMessage = "So far so good";
-        status = new JLabel("Status: " + statusMessage);
+        status = new JLabel("So far so good");
         status.setBounds(80, 265, 230, 70);
         status.setHorizontalAlignment(JLabel.CENTER);
 
@@ -112,8 +108,19 @@ public class UserWindow extends JFrame implements ActionListener {
         }
         if (e.getSource() == confirm)
         {
-            System.out.println("wow");
-            tileProcessor.run(selectedPicture, selectedOutputFolder);
+            if(selectedPicture != null && selectedOutputFolder != null)
+            {
+                tileProcessor.run(selectedPicture, selectedOutputFolder);
+                setStatusMessage("Done!");
+            }
+            else if(selectedPicture == null)
+            {
+                setStatusMessage("You have not specify tilemap picture!");
+            }
+            else
+            {
+                setStatusMessage("You have not specify output folder!");
+            }
         }
     }
 
@@ -127,8 +134,9 @@ public class UserWindow extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
-        Image dimg = newImg.getScaledInstance(preview.getWidth(), preview.getHeight(), Image.SCALE_DEFAULT);
-        preview.setIcon(new ImageIcon(dimg));
+        assert newImg != null;
+        Image tempImage = newImg.getScaledInstance(preview.getWidth(), preview.getHeight(), Image.SCALE_DEFAULT);
+        preview.setIcon(new ImageIcon(tempImage));
     }
 
     private void setDefaultConfigurations()
@@ -170,4 +178,10 @@ public class UserWindow extends JFrame implements ActionListener {
             addFolder.setSelectedIndex(0);
         }
     }
+
+    private void setStatusMessage(String message)
+    {
+        status.setText(message);
+    }
+
 }
