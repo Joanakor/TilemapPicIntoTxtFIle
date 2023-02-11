@@ -10,6 +10,9 @@ import java.io.IOException;
 
 public class UserWindow extends JFrame implements ActionListener {
 
+    String version = "v0.2.2";
+
+    JLabel versionLabel;
     TileProcessor tileProcessor;
     JMenuBar menuBar;
     JMenu help;
@@ -27,6 +30,7 @@ public class UserWindow extends JFrame implements ActionListener {
     String selectedOutputFolder;
 
     public UserWindow(){
+
         tileProcessor = new TileProcessor();
 
         setDefaultConfigurations();
@@ -46,6 +50,8 @@ public class UserWindow extends JFrame implements ActionListener {
         setConfirmButton();
 
         setStatus();
+
+        setVersionLabel();
         
         addAllComponents();
         
@@ -156,6 +162,12 @@ public class UserWindow extends JFrame implements ActionListener {
         status.setVerticalTextPosition(JLabel.NORTH);
     }
 
+    private void setVersionLabel()
+    {
+        versionLabel = new JLabel(version);
+        versionLabel.setBounds(350, 5, 50, 20);
+    }
+
     private void addAllComponents()
     {
         setJMenuBar(menuBar);
@@ -166,6 +178,7 @@ public class UserWindow extends JFrame implements ActionListener {
         add(addFolder);
         add(confirmButton);
         add(status);
+        add(versionLabel);
     }
 
     private void resizeAndSetImageIcon(File selectedPicture)

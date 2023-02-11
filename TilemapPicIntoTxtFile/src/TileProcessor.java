@@ -13,10 +13,10 @@ public class TileProcessor {
     public TileProcessor()
     {
         colorTable = new Color[5];
-        initColors();
+        setColors();
     }
 
-    private void initColors()
+    private void setColors()
     {
         colorTable[0] = Color.white;
         System.out.println(colorTable[0].getRed() + " " + colorTable[0].getGreen() + " " + colorTable[0].getBlue());
@@ -47,6 +47,7 @@ public class TileProcessor {
 
         int[][] numMap = new int [height][width];
 
+        // Fill the numMap array with color numbers
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
@@ -57,6 +58,11 @@ public class TileProcessor {
                     if (colorTable[color_index].getRGB() == color)
                     {
                         numMap[i][j] = color_index;
+                        break;
+                    }
+                    else
+                    {
+                        numMap[i][j] = -1;
                     }
                 }
             }
