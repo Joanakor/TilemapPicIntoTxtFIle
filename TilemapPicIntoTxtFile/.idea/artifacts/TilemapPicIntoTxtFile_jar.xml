@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TilemapPicIntoTxtFile:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TilemapPicIntoTxtFile_jar</output-path>
+    <root id="archive" name="TilemapPicIntoTxtFile.jar">
+      <element id="module-output" name="TilemapPicIntoTxtFile" />
+    </root>
+  </artifact>
+</component>

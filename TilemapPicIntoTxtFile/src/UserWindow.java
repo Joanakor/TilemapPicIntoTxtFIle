@@ -20,7 +20,7 @@ public class UserWindow extends JFrame implements ActionListener {
     JComboBox<String> addFolder;
     JLabel status;
 
-    JButton confirm;
+    JButton confirmButton;
 
     File selectedPicture;
 
@@ -32,67 +32,23 @@ public class UserWindow extends JFrame implements ActionListener {
         setDefaultConfigurations();
 
         //------Menu bar-------
-        menuBar = new JMenuBar();
-        help = new JMenu("Help");
-        help.addActionListener(this);
-        menuBar.add(help);
+        setMenuBar();
 
-        //------Preview label----------
-        preview = new JLabel();
-        preview.setBounds(150, 10, 100, 100);
-        preview.setBorder(BorderFactory.createLineBorder(null, 1));
+        //------Preview label--------
+        setPreviewLabel();
 
-        //------First prompt-----------
-        text1 = new JLabel("Select properly coloured tilemap image:");
-        text1.setBounds(80, 120, 250, 20);
+        //------First prompt-------
+        setFilePrompt();
 
-        addFile = new JComboBox<>();
-        addFile.setBounds(80, 150, 230, 20);
-        addFile.setFocusable(false);
+        //--------Second prompt--------
+        setFolderPrompt();
 
-        addFile.addActionListener(this);
+        setConfirmButton();
 
-        addFile.addItem("");
-        addFile.addItem("Select picture...");
-        addFile.setSelectedIndex(0);
-
-        //--------Second prompt----------
-        text2 = new JLabel("Select the folder for the output file:");
-        text2.setBounds(80, 180, 250, 20);
-
-        addFolder = new JComboBox<>();
-        addFolder.setBounds(80, 210, 230, 20);
-        addFolder.setFocusable(false);
-
-        addFolder.addActionListener(this);
-
-        addFolder.addItem("");
-        addFolder.addItem("Select folder...");
-        addFolder.setSelectedIndex(0);
-
-        //--------Button-----------
-
-        confirm = new JButton("Confirm");
-        confirm.setFocusable(false);
-        confirm.addActionListener(this);
-        confirm.setBounds(150, 240, 100, 20);
-
-        //-------Status---------
-        status = new JLabel("So far so good");
-        status.setBounds(80, 265, 230, 70);
-        status.setHorizontalAlignment(JLabel.CENTER);
-
-        status.setBorder(BorderFactory.createLineBorder(null, 2, true));
-        status.setVerticalTextPosition(JLabel.NORTH);
-
-        setJMenuBar(menuBar);
-        add(preview);
-        add(text1);
-        add(addFile);
-        add(text2);
-        add(addFolder);
-        add(confirm);
-        add(status);
+        setStatus();
+        
+        addAllComponents();
+        
         setVisible(true);
     }
 
@@ -106,7 +62,7 @@ public class UserWindow extends JFrame implements ActionListener {
         {
             setOutputFolder();
         }
-        if (e.getSource() == confirm)
+        if (e.getSource() == confirmButton)
         {
             if(selectedPicture != null && selectedOutputFolder != null)
             {
@@ -124,6 +80,94 @@ public class UserWindow extends JFrame implements ActionListener {
         }
     }
 
+    private void setDefaultConfigurations()
+    {
+        setIconImage(new ImageIcon("src/blueprint.png").getImage());
+        setTitle("Tilemap picture to txt");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(400,400);
+        setLayout(null);
+        setResizable(false);
+    }
+    
+    private void setMenuBar()
+    {
+        menuBar = new JMenuBar();
+        help = new JMenu("Help");
+        help.addActionListener(this);
+        menuBar.add(help);
+    }
+    
+    private void setPreviewLabel()
+    {
+        preview = new JLabel();
+        preview.setBounds(150, 10, 100, 100);
+        preview.setBorder(BorderFactory.createLineBorder(null, 1));
+    }
+    
+    private void setFilePrompt()
+    {
+        text1 = new JLabel("Select properly coloured tilemap image:");
+        text1.setBounds(80, 120, 250, 20);
+
+        addFile = new JComboBox<>();
+        addFile.setBounds(80, 150, 230, 20);
+        addFile.setFocusable(false);
+
+        addFile.addActionListener(this);
+
+        addFile.addItem("");
+        addFile.addItem("Select picture...");
+        addFile.setSelectedIndex(0);
+    }
+    
+    private void setFolderPrompt()
+    {
+        text2 = new JLabel("Select the folder for the output file:");
+        text2.setBounds(80, 180, 250, 20);
+
+        addFolder = new JComboBox<>();
+        addFolder.setBounds(80, 210, 230, 20);
+        addFolder.setFocusable(false);
+
+        addFolder.addActionListener(this);
+
+        addFolder.addItem("");
+        addFolder.addItem("Select folder...");
+        addFolder.setSelectedIndex(0);
+    }
+
+    private void setConfirmButton()
+    {
+        confirmButton = new JButton("confirmButton");
+        confirmButton.setFocusable(false);
+        confirmButton.addActionListener(this);
+        confirmButton.setBounds(150, 240, 100, 20);
+    }
+
+    private void setStatus()
+    {
+        status = new JLabel("So far so good");
+        status.setBounds(80, 265, 230, 70);
+        status.setHorizontalAlignment(JLabel.CENTER);
+
+        status.setBorder(BorderFactory.createLineBorder(null, 2, true));
+        status.setVerticalTextPosition(JLabel.NORTH);
+    }
+
+    private void addAllComponents()
+    {
+        setJMenuBar(menuBar);
+        add(preview);
+        add(text1);
+        add(addFile);
+        add(text2);
+        add(addFolder);
+        add(confirmButton);
+        add(status);
+    }
+
     private void resizeAndSetImageIcon(File selectedPicture)
     {
         BufferedImage newImg = null;
@@ -138,18 +182,6 @@ public class UserWindow extends JFrame implements ActionListener {
         Image tempImage = newImg.getScaledInstance(preview.getWidth(), preview.getHeight(), Image.SCALE_DEFAULT);
         preview.setIcon(new ImageIcon(tempImage));
     }
-
-    private void setDefaultConfigurations()
-    {
-        setIconImage(new ImageIcon("src/blueprint.png").getImage());
-        setTitle("Tilemap picture to txt");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
-        setSize(400,400);
-        setLayout(null);
-        setResizable(false);
-    }
-
     private void setTilemapPictureFile()
     {
         JFileChooser fileChooser = new JFileChooser();
