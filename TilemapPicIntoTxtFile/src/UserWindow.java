@@ -141,6 +141,7 @@ public class UserWindow extends JFrame implements ActionListener {
 
     private void setDefaultConfigurations()
     {
+        setIconImage(new ImageIcon("src/blueprint.png").getImage());
         setTitle("Tilemap picture to txt");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

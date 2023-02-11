@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Tilemaps">
+    <output-path>$PROJECT_DIR$/out/artifacts/Tilemaps</output-path>
+    <root id="archive" name="Tilemaps.jar" />
+  </artifact>
+</component>
