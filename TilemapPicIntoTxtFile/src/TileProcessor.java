@@ -4,30 +4,36 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TileProcessor {
 
-    Color[] colorTable;
+    ArrayList<Color> colorTable;
     int colorTableSize = 5;
 
     public TileProcessor()
     {
-        colorTable = new Color[5];
+        colorTable = new ArrayList<>();
         setColors();
     }
 
     private void setColors()
     {
-        colorTable[0] = Color.white;
-        System.out.println(colorTable[0].getRed() + " " + colorTable[0].getGreen() + " " + colorTable[0].getBlue());
-        colorTable[1] = Color.black;
-        System.out.println(colorTable[1].getRed() + " " + colorTable[1].getGreen() + " " + colorTable[1].getBlue());
-        colorTable[2] = Color.red;
-        System.out.println(colorTable[2].getRed() + " " + colorTable[2].getGreen() + " " + colorTable[2].getBlue());
-        colorTable[3] = Color.green;
-        System.out.println(colorTable[3].getRed() + " " + colorTable[3].getGreen() + " " + colorTable[3].getBlue());
-        colorTable[4] = Color.blue;
-        System.out.println(colorTable[4].getRed() + " " + colorTable[4].getGreen() + " " + colorTable[4].getBlue());
+        colorTable.add(Color.white);
+        colorTable.add(Color.black);
+        colorTable.add(Color.red);
+        colorTable.add(Color.green);
+        colorTable.add(Color.blue);
+        colorTable.add(Color.yellow);
+        colorTable.add(Color.magenta);
+        colorTable.add(Color.cyan);
+        colorTable.add(new Color(0, 200, 50));
+        colorTable.add(new Color(200, 0, 50));
+
+        for (Color clr : colorTable)
+        {
+            System.out.println(clr.getRed() + " " + clr.getGreen() + " " + clr.getBlue());
+        }
     }
 
     private BufferedImage fileIntoImage(File imgFile)
@@ -53,11 +59,11 @@ public class TileProcessor {
             for (int j = 0; j < width; j++)
             {
                 int color = img.getRGB(j, i);
-                for (int color_index = 0; color_index < colorTableSize; color_index++)
+                for (Color clr : colorTable)
                 {
-                    if (colorTable[color_index].getRGB() == color)
+                    if (clr.getRGB() == color)
                     {
-                        numMap[i][j] = color_index;
+                        numMap[i][j] = colorTable.indexOf(clr);
                         break;
                     }
                     else

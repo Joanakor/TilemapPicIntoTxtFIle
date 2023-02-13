@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class UserWindow extends JFrame implements ActionListener {
 
-    String version = "v0.2.2";
+    String version = "v0.2.3";
 
     JLabel versionLabel;
     TileProcessor tileProcessor;
