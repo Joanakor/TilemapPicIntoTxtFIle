@@ -146,7 +146,7 @@ public class UserWindow extends JFrame implements ActionListener {
 
     private void setConfirmButton()
     {
-        confirmButton = new JButton("confirmButton");
+        confirmButton = new JButton("Confirm");
         confirmButton.setFocusable(false);
         confirmButton.addActionListener(this);
         confirmButton.setBounds(150, 240, 100, 20);
