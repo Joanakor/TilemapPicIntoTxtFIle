@@ -30,6 +30,7 @@ public class UserWindow extends JFrame implements ActionListener {
     String selectedOutputFolder;
 
     public UserWindow(){
+        
 
         tileProcessor = new TileProcessor();
 
