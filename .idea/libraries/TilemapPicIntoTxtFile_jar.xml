@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="TilemapPicIntoTxtFile_jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/TilemapPicIntoTxtFile/out/artifacts/TilemapPicIntoTxtFile_jar/TilemapPicIntoTxtFile jdk18.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TilemapPicIntoTxtFile/out/artifacts/TilemapPicIntoTxtFile_jar/TilemapPicIntoTxtFile.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
