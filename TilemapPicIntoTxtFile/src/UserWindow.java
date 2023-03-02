@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Desktop;
+
 
 public class UserWindow extends JFrame implements ActionListener {
 
-    String version = "v0.2.3";
+    String version = "v0.2.4";
 
     JLabel versionLabel;
     TileProcessor tileProcessor;
@@ -29,8 +31,10 @@ public class UserWindow extends JFrame implements ActionListener {
 
     String selectedOutputFolder;
 
+    SampleMenuListener menuListener;
+
     public UserWindow(){
-        
+
 
         tileProcessor = new TileProcessor();
 
@@ -100,9 +104,10 @@ public class UserWindow extends JFrame implements ActionListener {
     
     private void setMenuBar()
     {
+        menuListener = new SampleMenuListener();
         menuBar = new JMenuBar();
         help = new JMenu("Help");
-        help.addActionListener(this);
+        help.addMenuListener(menuListener);
         menuBar.add(help);
     }
     
@@ -160,7 +165,7 @@ public class UserWindow extends JFrame implements ActionListener {
         status.setHorizontalAlignment(JLabel.CENTER);
 
         status.setBorder(BorderFactory.createLineBorder(null, 2, true));
-        status.setVerticalTextPosition(JLabel.NORTH);
+        status.setVerticalTextPosition(SwingConstants.TOP);
     }
 
     private void setVersionLabel()

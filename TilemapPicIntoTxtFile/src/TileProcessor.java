@@ -6,17 +6,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Class for text file creation
 public class TileProcessor {
 
+    // ArrayList of all supported colors
     ArrayList<Color> colorTable;
-    int colorTableSize = 5;
-
     public TileProcessor()
     {
         colorTable = new ArrayList<>();
         setColors();
     }
 
+    // Set supported colors
     private void setColors()
     {
         colorTable.add(Color.white);
@@ -29,13 +30,9 @@ public class TileProcessor {
         colorTable.add(Color.cyan);
         colorTable.add(new Color(0, 200, 50));
         colorTable.add(new Color(200, 0, 50));
-
-        for (Color clr : colorTable)
-        {
-            System.out.println(clr.getRed() + " " + clr.getGreen() + " " + clr.getBlue());
-        }
     }
 
+    // Convert File to BufferedImage
     private BufferedImage fileIntoImage(File imgFile)
     {
         try {
@@ -101,6 +98,5 @@ public class TileProcessor {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
