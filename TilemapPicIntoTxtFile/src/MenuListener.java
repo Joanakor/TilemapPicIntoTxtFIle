@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-class SampleMenuListener implements MenuListener {
+class SimpleMenuListener implements MenuListener {
 
     @Override
     public void menuSelected(MenuEvent e) {

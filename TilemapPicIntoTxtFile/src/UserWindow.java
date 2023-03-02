@@ -7,15 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Desktop;
 
 
 public class UserWindow extends JFrame implements ActionListener {
 
-    String version = "v0.2.4";
+    final String version = "v0.2.4";
 
     JLabel versionLabel;
-    TileProcessor tileProcessor;
+    final TileProcessor tileProcessor;
     JMenuBar menuBar;
     JMenu help;
     JLabel preview;
@@ -31,7 +30,7 @@ public class UserWindow extends JFrame implements ActionListener {
 
     String selectedOutputFolder;
 
-    SampleMenuListener menuListener;
+    SimpleMenuListener menuListener;
 
     public UserWindow(){
 
@@ -104,7 +103,7 @@ public class UserWindow extends JFrame implements ActionListener {
     
     private void setMenuBar()
     {
-        menuListener = new SampleMenuListener();
+        menuListener = new SimpleMenuListener();
         menuBar = new JMenuBar();
         help = new JMenu("Help");
         help.addMenuListener(menuListener);

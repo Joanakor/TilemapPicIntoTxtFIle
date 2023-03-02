@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TileProcessor {
 
     // ArrayList of all supported colors
-    ArrayList<Color> colorTable;
+    final ArrayList<Color> colorTable;
     public TileProcessor()
     {
         colorTable = new ArrayList<>();
@@ -48,9 +48,15 @@ public class TileProcessor {
         int height = img.getHeight(null);
         int width = img.getWidth(null);
 
-        int[][] numMap = new int [height][width];
-
         // Fill the numMap array with color numbers
+        int[][] numMap = fillNumberArray(img, height, width);
+
+        writeToFile(numMap, height, width, outputFolderLocation);
+    }
+
+    private int[][] fillNumberArray(BufferedImage img, int height, int width)
+    {
+        int[][] numMap = new int [height][width];
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
@@ -70,9 +76,12 @@ public class TileProcessor {
                 }
             }
         }
+        return numMap;
+    }
 
+    private void writeToFile(int [][] numMap, int height, int width, String outputFolderLocation)
+    {
         File txtFile;
-
         try {
             int exists = 1;
             while (true) {
@@ -99,4 +108,5 @@ public class TileProcessor {
             throw new RuntimeException(e);
         }
     }
+
 }
