@@ -41,6 +41,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -48,6 +49,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mark6\OneDrive\Documents\TilemapPicIntoTxtFile\TilemapPicIntoTxtFile\src" />
       <recent name="C:\Users\mark6\OneDrive\Documents\TilemapPicIntoTxtFile\TilemapPicIntoTxtFile\rsc\tilemaps" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Application.TileProcessor">
